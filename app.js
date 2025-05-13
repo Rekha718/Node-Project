@@ -21,10 +21,12 @@ const server = http.createServer((req, res) => {
             const parsedBody = Buffer.concat(body).toString();
             const username = parsedBody.split('=')[1];
             console.log(username);
-            fs.writeFileSync('usernames.txt', username);
-            res.statusCode = 302;
-            res.setHeader('Location', '/');
-            return res.end();
+            fs.writeFile('usernames.txt', username,err=>{
+                 res.statusCode = 302;
+                 res.setHeader('Location', '/');
+                 return res.end();
+            });
+            
         });
         
     }
